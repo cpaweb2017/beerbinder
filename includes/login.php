@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
         	$result = mysqli_stmt_get_result($stmt);
         	if ($row = mysqli_fetch_assoc($result)) {
 				//Insecure password check (for now)
-				if ($pwd == $row['u_first_name']) {
+				if ($pwd == $row['u_password']) {
 					//Set SESSION variables and log user in
 					$_SESSION['u_first'] = $row['u_first_name'];
 					$_SESSION['u_last'] = $row['u_last_name'];
