@@ -9,12 +9,25 @@
 
 	<?php if (isset($_SESSION['u_id'])) { ?>
 
-	<h1>You logged in, <?php echo $_SESSION['u_id'] ?></h1>
-	<br>
-	<div class="logout-form">
-		<form action="includes/logout.php" method="POST">
-			<input type="submit" class="logout-submit" value="Logout" name="logoutSubmit">
-		</form>
+	<header>
+		Beer Binder
+		<div class="logout-form">
+			<form action="includes/logout.php" method="POST">
+				<input type="submit" class="logout-submit" value="Logout" name="logoutSubmit">
+			</form>
+		</div>
+	</header>
+
+	<div class="page-wrap">
+		<div class="navigation">
+			<div class="button button-color1" onclick="loadPage('dashboard')">
+				Dashboard
+			</div>
+			<div class="button button-color2" onclick="loadPage('beers')">
+				Beers
+			</div>
+		</div>
+		<div class="page-content" id="page-content"></div>
 	</div>
 
 	<?php } else {  ?>
@@ -40,4 +53,5 @@
 	<?php } ?>
 
 </body>
+<script src="/js/ajax-load.js"></script>
 </html>
