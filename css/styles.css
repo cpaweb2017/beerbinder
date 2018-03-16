@@ -1,0 +1,160 @@
+/* ==========================================================================
+   GENERAL STLYES 
+   ========================================================================== */
+
+* {
+	box-sizing: border-box; 
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0px; 
+}
+
+a {
+	cursor: pointer; 
+}
+
+/* ==========================================================================
+   NAVIGATION BAR
+   ========================================================================== */
+
+
+.nav-left-main {
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    flex-basis: 20%;
+    background-color: #000;
+    color: #fff; 
+    height: 100vh; 	
+}
+
+.nav-logo {
+	flex-basis: 20%; 
+}
+
+.logo {
+	height: 50px; 
+	width: 50px; 
+	background-color: #fff; 
+}
+
+.nav-links {
+	flex-basis: 30%;	
+
+}
+
+.nav-btm {
+	flex-basis: 50%;
+	display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-around;
+  border: 1px solid black; 
+}
+
+.home-cont {
+	display: flex; 
+	flex-wrap: wrap;
+	max-height: 100vh; 
+}
+
+.menu-left {
+	flex-basis: 20%; 
+	background-color: #000;
+	color: #fff; 
+	height: 100vh; 
+	padding: 2%; 
+}
+
+.text-right {
+	flex-basis: 80%; 
+  	display: flex;
+  	flex-direction: column;
+  	padding: 1.5%; 
+}
+
+.title-container {
+	border: 1px solid black; 
+	padding: 2%; 
+	flex-basis: 30%;
+	margin-bottom: 2%; 
+}
+
+.beer-scroll-cont {
+	overflow-y: auto;
+	flex-basis: 70%; 
+	border: 1px solid black;
+	display: flex; 
+	flex-wrap: wrap;
+	justify-content: space-around;   
+}
+
+.beer-scroll-cont:after {
+	content: "";
+	flex: auto; 
+}
+
+/* ==========================================================================
+   BEER BLOCKS
+   ========================================================================== */
+
+.beer-block {
+	margin: 1%; 
+	flex-basis: 30%; 
+	border: 1px solid black;
+}
+
+.beer-title {
+	padding: 0% 4%; 
+}
+
+.beer-info-container,
+.beer-description-container {
+	display: flex; 
+	flex-wrap: wrap; 
+}
+
+.beer-info-class {
+	flex-basis: 25%; 
+	flex-grow: 1;
+	border: 1px solid black;
+	padding: 3%;  
+}
+
+.beer-desc-class {
+	flex-grow: 1;
+	padding: 4%; 
+}
+
+.beer-image {
+	flex-basis: 30%; 
+}
+
+.beer-text {
+	flex-basis: 60%; 
+}
+
+/* ==========================================================================
+   FORM
+   ========================================================================== */
+
+.form-container {
+    margin: 2%;
+    border: 1px solid black;
+    width: 100%;
+    padding: 2% 5%;  
+}
+
+.form-container input, 
+.form-container textarea {
+	width: 100%; 
+}

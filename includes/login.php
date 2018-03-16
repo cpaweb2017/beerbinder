@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 if (isset($_POST['submit'])) {
 	include_once 'db-conn.php';
@@ -47,4 +47,4 @@ if (isset($_POST['submit'])) {
 } else {
 	header("Location: ../index.php?login=error");
 	exit();
-}
+} -->
