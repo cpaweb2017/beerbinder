@@ -143,13 +143,25 @@ a {
    ========================================================================== */
 
 .form-container {
-    margin: 2%;
-    border: 1px solid black;
     width: 100%;
-    padding: 2% 5%;  
+    padding: 20px; 
+    overflow-y: auto;  
+}
+
+.form-container h4 {
+	margin: 0px 0px 20px; 
 }
 
 .form-container input, 
 .form-container textarea {
-	width: 100%; 
+	width: 100%;
+	border: none;
+    border-bottom: 1px solid black;
+    font-size: 24px;
+    padding: 10px 0px; 
 }
+
+input:focus {
+    outline:none;
+}
+
