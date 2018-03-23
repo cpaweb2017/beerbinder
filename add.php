@@ -1,16 +1,38 @@
-<?php session_start();
 
-ob_start();
+<?php 
 
+include_once('includes/db-conn.php');
 
-include_once('includes/db-conn.php'); 
-include_once('includes/categories.php');
-include_once('includes/article.php'); 
+if (isset($_POST['title'], $_POST['content'])) {
 
-$article = new Article; 
-$articles = $article->fetch_all(); 
+		$title = $_POST['title']; 
+		$country = $_POST['country'];
+		$type = $_POST['type']; 
+		$title_content = $_POST['title_content']; 
+		$content = nl2br($_POST['content']); 
+ 
+ 
+		if (empty($title) or empty($content)) {
+			$error = 'All fields required';  
 
+		} else {
+			
+			$query = $pdo->prepare('INSERT INTO articles (article_title, article_type, article_country, article_title_content, article_content,  article_timestamp) VALUES (?,?,?,?,?,?)');  
 
+			$query->bindValue(1, $title);
+			$query->bindValue(2, $type); 
+			$query->bindValue(3, $country); 
+			$query->bindValue(4, $title_content); 
+			$query->bindValue(5, $content); 
+			$query->bindValue(6, time());
+
+			$query->execute(); 
+			$error = "No error";
+			//var_dump( $query->errorInfo() );
+
+			//header('Location:index.php');  
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -37,10 +59,12 @@ $articles = $article->fetch_all();
  				</br></br>
  			<?php } ?>
 
- 			<form method="post" autocomplete="off" enctype="multipart/form-data">
+ 			<form action="add.php" method="post" autocomplete="off" enctype="multipart/form-data" id="add-form">
  			<input type="text" name="title" placeholder="Name of Beer" /> </br></br>
+ 			<input type="text" name="type" placeholder="Type of Beer" /> </br></br>
+ 			<input type="text" name="country" placeholder="Country" /> </br></br>
+ 			<input type="text" name="title_content" placeholder="Desription Title"/> </br></br>
  			<textarea rows="15" cols="50" placeholder="Content" Name="content"></textarea> </br></br>
- 			<textarea rows="5" cols="50" placeholder="Country" Name="country"></textarea> </br></br>
 
  			<input type="submit" value="Submit" />
 

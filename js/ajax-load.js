@@ -12,3 +12,13 @@ function loadPage(pageId) {
     });
   })
 }
+
+function SubForm() {
+    $.ajax({
+        url:'../add.php',
+        type:'post',
+        data:$('#add-form').serialize(),
+        success:function(){
+            alert("worked");
+        }
+    })

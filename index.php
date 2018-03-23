@@ -8,8 +8,45 @@ include_once('includes/categories.php');
 include_once('includes/article.php'); 
 
 $article = new Article; 
-$articles = $article->fetch_all();  
+$articles = $article->fetch_all(); 
 
+?>
+
+
+<?php 
+
+include_once('includes/db-conn.php');
+
+if (isset($_POST['title'], $_POST['content'])) {
+
+		$title = $_POST['title']; 
+		$country = $_POST['country'];
+		$type = $_POST['type']; 
+		$title_content = $_POST['title_content']; 
+		$content = nl2br($_POST['content']); 
+ 
+ 
+		if (empty($title) or empty($content)) {
+			$error = 'All fields required';  
+
+		} else {
+			
+			$query = $pdo->prepare('INSERT INTO articles (article_title, article_type, article_country, article_title_content, article_content,  article_timestamp) VALUES (?,?,?,?,?,?)');  
+
+			$query->bindValue(1, $title);
+			$query->bindValue(2, $type); 
+			$query->bindValue(3, $country); 
+			$query->bindValue(4, $title_content); 
+			$query->bindValue(5, $content); 
+			$query->bindValue(6, time());
+
+			$query->execute(); 
+			$error = "No error";
+			//var_dump( $query->errorInfo() );
+
+			//header('Location:index.php');  
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -69,10 +106,10 @@ $articles = $article->fetch_all();
 							</div>
 							<div class="beer-info-container">
 								<div class="beer-info-class beer-type">
-									Lager
+									<?php echo $article['article_type']; ?>
 								</div>
 								<div class="beer-info-class beer-country">
-									Denmark
+									<?php echo $article['article_country']; ?>
 								</div>
 								<div class="beer-info-class beer-date">
 									posted <?php echo date ('l jS', $article['article_timestamp']); ?>
@@ -83,7 +120,7 @@ $articles = $article->fetch_all();
 									IMAGE TO GO HERE
 								</div>
 								<div class="beer-desc-class beer-text">
-									<h3> Description Headline </h3>
+									<h3> <?php echo $article['article_title_content']; ?> </h3>
 									<h4> Rating </h4>
 									<p> Dummy text for description </p>
 								</div>
