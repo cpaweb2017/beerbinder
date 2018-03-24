@@ -16,83 +16,24 @@ $articles = $article->fetch_all();
 <?php 
 
 include_once('includes/db-conn.php');
+include_once('add-form.php'); 
 
-if (isset($_POST['title'], $_POST['content'])) {
-
-		$title = $_POST['title']; 
-		$country = $_POST['country'];
-		$type = $_POST['type']; 
-		$title_content = $_POST['title_content']; 
-		$content = nl2br($_POST['content']); 
- 
- 
-		if (empty($title) or empty($content)) {
-			$error = 'All fields required';  
-
-		} else {
-			
-			$query = $pdo->prepare('INSERT INTO articles (article_title, article_type, article_country, article_title_content, article_content,  article_timestamp) VALUES (?,?,?,?,?,?)');  
-
-			$query->bindValue(1, $title);
-			$query->bindValue(2, $type); 
-			$query->bindValue(3, $country); 
-			$query->bindValue(4, $title_content); 
-			$query->bindValue(5, $content); 
-			$query->bindValue(6, time());
-
-			$query->execute(); 
-			$error = "No error";
-			//var_dump( $query->errorInfo() );
-
-			//header('Location:index.php');  
-		}
-	}
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Beer Binder</title>
-	<link rel="stylesheet" href="css/styles.css">
+<?php include_once ('head.php'); ?>
 
-</head>
 <body>
 
 
-	<div class="home-cont">
-		<div class="nav-left-main">
-
-			<div class="nav-logo">
-				<a href="index.php">
-				<div class="logo"> 
-					LOGO HERE </a>
-				</div>
-			</div>
-			<div class="nav-links">
-				<div class="button button-color1" onclick="loadPage('add')">
-					<a href="#">Add </a>
-				</div>
-				<div class="button button-color2" onclick="loadPage('edit')">
-					<a href="#">Edit </a>
-				</div>
-				<div class="button button-color2" onclick="loadPage('delete')">
-					<a href="#">Delete </a>
-				</div>
-			</div>
-			<div class="nav-btm">
-				<div class="logout-form">
-					<form action="includes/logout.php" method="POST">
-						<input type="submit" class="logout-submit" value="Logout" name="logoutSubmit">
-					</form>
-				</div>
-			</div>
-		</div>
+	<?php include_once ('navbar-standard.php'); ?>
 
 
 			<div id="page-content" class="text-right">
 					<div class="title-container"> 
-						<h1> Welcome back <?php echo $_SESSION['u_first']; ?> !!!</h1>
+						<h1> Welcome back... </h1>
+						<div class="title-sub-title">
+						View the latest beers you have added
+						</div>
 						<p>The standard Lorem Ipsum passage, used since the 1500s
 						"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 					</div>
@@ -100,8 +41,8 @@ if (isset($_POST['title'], $_POST['content'])) {
 						<?php foreach ($articles as $article) { ?>
 						<div class="beer-block">
 							<div class="beer-title">
-									<a href="article.php?id=<?php echo $article['article_id'];?>">
-							      <?php echo $article['article_title']; ?>
+									<!-- <a href="article.php?id=<?php echo $article['article_id'];?>"> -->
+							      <h2><?php echo $article['article_title']; ?></h2>
 							     </a>
 							</div>
 							<div class="beer-info-container">
@@ -112,7 +53,7 @@ if (isset($_POST['title'], $_POST['content'])) {
 									<?php echo $article['article_country']; ?>
 								</div>
 								<div class="beer-info-class beer-date">
-									posted <?php echo date ('l jS', $article['article_timestamp']); ?>
+									<?php echo date ('F Y', $article['article_timestamp']); ?>
 								</div>
 							</div>
 							<div class="beer-description-container">
@@ -120,9 +61,8 @@ if (isset($_POST['title'], $_POST['content'])) {
 									IMAGE TO GO HERE
 								</div>
 								<div class="beer-desc-class beer-text">
-									<h3> <?php echo $article['article_title_content']; ?> </h3>
-									<h4> Rating </h4>
-									<p> Dummy text for description </p>
+									<h4> <?php echo $article['article_rating']; ?> </h4>
+									<p> <?php echo $article['article_content']; ?> </p>
 								</div>
 							</div>
 						</div>
@@ -131,6 +71,17 @@ if (isset($_POST['title'], $_POST['content'])) {
 		</div>
 	</div>
 </div>
+
+	<script> 
+
+			$('li').on('click', function(){
+			$('li').removeClass('active'); 
+			$('li').removeClass('secondary-active'); 
+			$(this).addClass('active'); 
+			$(this).prevAll().addClass('secondary-active'); 
+		})
+
+	</script>
 
 
 </body>
