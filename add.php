@@ -2,47 +2,11 @@
 <?php 
 
 include_once('includes/db-conn.php');
-
-if (isset($_POST['title'], $_POST['content'])) {
-
-		$title = $_POST['title']; 
-		$country = $_POST['country'];
-		$type = $_POST['type']; 
-		$title_content = $_POST['title_content']; 
-		$content = nl2br($_POST['content']); 
- 
- 
-		if (empty($title) or empty($content)) {
-			$error = 'All fields required';  
-
-		} else {
-			
-			$query = $pdo->prepare('INSERT INTO articles (article_title, article_type, article_country, article_title_content, article_content,  article_timestamp) VALUES (?,?,?,?,?,?)');  
-
-			$query->bindValue(1, $title);
-			$query->bindValue(2, $type); 
-			$query->bindValue(3, $country); 
-			$query->bindValue(4, $title_content); 
-			$query->bindValue(5, $content); 
-			$query->bindValue(6, time());
-
-			$query->execute(); 
-			$error = "No error";
-			//var_dump( $query->errorInfo() );
-
-			//header('Location:index.php');  
-		}
-	}
+include_once('add-form.php'); 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Beer Binder</title>
-	<link rel="stylesheet" href="css/styles.css">
+<?php include ('head.php'); ?>
 
-</head>
 <body>
 	<div class="title-container"> 
 		<h1> ADD PHPHPHPHPHP</h1>
@@ -52,23 +16,32 @@ if (isset($_POST['title'], $_POST['content'])) {
 	<div class="beer-scroll-cont">
 		<div class="form-container"> 
 
-			<h4> Add Article </h4>
-
  			<?php if (isset($error)) { ?> 
  				<small style="color:#aa0000;"> <?php echo $error; ?> </small>
  				</br></br>
  			<?php } ?>
 
- 			<form action="add.php" method="post" autocomplete="off" enctype="multipart/form-data" id="add-form">
+ 			<form action="index.php" method="post" autocomplete="off" enctype="multipart/form-data" id="add-form">
  			<input type="text" name="title" placeholder="Name of Beer" /> </br></br>
  			<input type="text" name="type" placeholder="Type of Beer" /> </br></br>
  			<input type="text" name="country" placeholder="Country" /> </br></br>
- 			<input type="text" name="title_content" placeholder="Desription Title"/> </br></br>
- 			<textarea rows="15" cols="50" placeholder="Content" Name="content"></textarea> </br></br>
+ 			<textarea rows="15" cols="50" placeholder="Short Description..." Name="content"></textarea> </br></br>
+ 			 <ul class="ratings-list-container"> 
+ 			 	<h2> Rate this Beer: </h2>
+ 				<li><label for="rating_1"><i class="fas fa-star"></i></label><input type="radio" name="title_rating" placeholder="Beer Rating" id="rating_1" value="1"/></li>
+ 				<li><label for="rating_2"><i class="fas fa-star"></i></label><input type="radio" name="title_rating" placeholder="Beer Rating" id="rating_2" value="2"/></li>
+ 				<li><label for="rating_3"><i class="fas fa-star"></i></label><input type="radio" name="title_rating" placeholder="Beer Rating" id="rating_3" value="3"/></li>
+ 				<li><label for="rating_4"><i class="fas fa-star"></i></label><input type="radio" name="title_rating" placeholder="Beer Rating" id="rating_4" value="4"/></li>
+ 				<li><label for="rating_5"><i class="fas fa-star"></i></label><input type="radio" name="title_rating" placeholder="Beer Rating" id="rating_5" value="5"/></li>
+			</ul>
+			</br></br>
 
- 			<input type="submit" value="Submit" />
+ 			<input type="submit" value="Submit" class="add-submit"/>
 
 		</div> 
 
 	</div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/js/ajax-load.js"></script>
