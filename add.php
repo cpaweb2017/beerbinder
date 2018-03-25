@@ -35,7 +35,7 @@ include_once('add-form.php');
  				<li><label for="rating_5"><i class="fas fa-star"></i></label><input type="radio" name="title_rating" placeholder="Beer Rating" id="rating_5" value="5"/></li>
 			</ul>
 			</br></br>
-
+			<input type="hidden" value="1" name="addFormSubmitted"/>
  			<input type="submit" value="Submit" class="add-submit"/>
 
 		</div> 
